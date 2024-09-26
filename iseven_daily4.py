@@ -83,8 +83,8 @@ df = pd.read_csv(r'/Users/gustavo.vaca/Downloads/daily4night - Sheet24.csv')
 # csv for Pos_highLow4
 
 # Set Filter
-Pos_Filter = 'Pos_highLow4'
-rowsToCheck = 10
+Pos_Filter = 'Pos_highLow3'
+rowsToCheck = 12
 
 # Clear the screen terminal and Calculate Pos_Filter median
 os.system('clear')
@@ -114,7 +114,7 @@ for i in range(10000000):
 correlation = 0
 correlation1 = 0
 count =0
-while not correlation1 > 0.5 or correlation1 < -0.5: 
+while not correlation1 > 0.6 or correlation1 < -0.6: 
   while not correlation > 0.96 or correlation < -0.96: # +/- 0.96 for last 10 draws. +/- 0.15 for all draws (look for highest correlation for last 10 draws)
     count += 1
 
@@ -151,15 +151,22 @@ y_test_last, y_pred_last = prep_to_graph(df_summary, EMA)
 
 graph(y_test_last, y_pred_last, Pos_Filter)
 
-df_summary['up/down'] = (df_summary[Pos_Filter] > df_summary[EMA]).astype(int)
+df_summary['up/down'] = (df_summary[Pos_Filter] <= df_summary[EMA]).astype(int)
 
-# Calculate % greather than
-print(str(Pos_Filter) + ' (future) is greater than ' + str(EMA) + ' (%)')
+# Calculate %
+print(str(Pos_Filter) + ' (predicted) is less than or equal to  ' + str(EMA) + ' (%)')
 print(df_summary['up/down'].value_counts()*100/df_summary['up/down'].count())
 
 df_summary['up/down'] = (df_summary[Pos_Filter] >= df_summary[EMA]).astype(int)
-# Calculate % greather than or equal to
-print(str(Pos_Filter) + ' (future) is greater than or equal to ' + str(EMA) + ' (%)')
+
+# Calculate %
+print(str(Pos_Filter) + ' (predicted) is greater than or equal to ' + str(EMA) + ' (%)')
+print(df_summary['up/down'].value_counts()*100/df_summary['up/down'].count())
+
+df_summary['up/down'] = (df_summary[Pos_Filter] == df_summary[EMA]).astype(int)
+
+# Calculate %
+print(str(Pos_Filter) + ' (predicted) is equal to ' + str(EMA) + ' (%)')
 print(df_summary['up/down'].value_counts()*100/df_summary['up/down'].count())
 
 df_summary['delta'] = abs(df_summary[Pos_Filter] - df_summary[EMA])
