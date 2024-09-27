@@ -82,9 +82,14 @@ df = pd.read_csv(r'/Users/gustavo.vaca/Downloads/daily4night - Sheet24.csv')
 # csv for Pos_highLow3
 # csv for Pos_highLow4
 
+# csv for Pos_Layout1
+# csv for Pos_Layout2
+# csv for Pos_Layout3
+# csv for Pos_Layout4
+
 # Set Filter
 Pos_Filter = 'Pos_highLow4'
-rowsToCheck = 12
+rowsToCheck = 14
 
 # Clear the screen terminal and Calculate Pos_Filter median
 os.system('clear')
@@ -115,7 +120,7 @@ correlation = 0
 correlation1 = 0
 count =0
 while not correlation1 > 0.6 or correlation1 < -0.6: 
-  while not correlation > 0.96 or correlation < -0.96: # +/- 0.96 for last 10 draws. +/- 0.15 for all draws (look for highest correlation for last 10 draws)
+  while not correlation > 0.97 or correlation < -0.97: # +/- 0.96 for last 10 draws. +/- 0.15 for all draws (look for highest correlation for last 10 draws)
     count += 1
 
     df_partial = generate_random_numbers(df, df_partial, Pos_Filter, number_of_rows, number_of_rows_reduced)
