@@ -70,26 +70,29 @@ def generate_random_numbers(df, df_partial, Pos_Filter, number_of_rows, number_o
   return df_partial
 
 # csv Master File
-df = pd.read_csv(r'/Users/gustavo.vaca/Downloads/daily4night - Sheet24.csv')
+df = pd.read_csv(r'/Users/gustavo.vaca/Downloads/cash5_Pos_by_Position - Sheet32.csv')
 
 # csv for Pos_isEven1
 # csv for Pos_isEven2
 # csv for Pos_isEven3
 # csv for Pos_isEven4
+# csv for Pos_isEven5
 
 # csv for Pos_highLow1
 # csv for Pos_highLow2
 # csv for Pos_highLow3
 # csv for Pos_highLow4
+# csv for Pos_highLow5
 
 # csv for Pos_Layout1
 # csv for Pos_Layout2
 # csv for Pos_Layout3
 # csv for Pos_Layout4
+# csv for Pos_Layout5
 
 # Set Filter
-Pos_Filter = 'Pos_isEven1'
-rowsToCheck = 12
+Pos_Filter = 'Pos_highLow2'
+rowsToCheck = 14
 
 # Clear the screen terminal and Calculate Pos_Filter median
 os.system('clear')
