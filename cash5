@@ -61,7 +61,7 @@ def generate_random_numbers(df, df_partial, Pos_Filter, number_of_rows, number_o
   return df_partial
 
 # csv Master File
-df = pd.read_csv(r'/Users/gustavo.vaca/Downloads/cash5_Pos_by_Position - Sheet24.csv')
+df = pd.read_csv(r'/Users/gustavo.vaca/Downloads/cash5_Pos_by_Position - Sheet32.csv')
 
 # ------- For median = 7, N=400 ----------
 # csv for PosX
@@ -95,7 +95,7 @@ df = pd.read_csv(r'/Users/gustavo.vaca/Downloads/cash5_Pos_by_Position - Sheet24
 # csv for PosX-Y
 
 # Set Filter
-Pos_Filter = 'Pos_Sum1-2'
+Pos_Filter = 'Pos1'
 rowsToCheck = 5
 
 # Clear the screen terminal and Calculate Pos_Filter median
@@ -112,7 +112,7 @@ rf = RandomForestRegressor(n_estimators=100, random_state=42)
 log_reg = LogisticRegression(C=0.0001, max_iter=1000, penalty='none', solver='saga', random_state=0)
 
 predictors = [Pos_Filter]
-df_partial = df[predictors][-300:]
+df_partial = df[predictors][-400:]
 # 153 for Posn (median = 5). 129 for Skip_Pos1 and Skip_Pos4 (median = 6)
 
 number_of_rows = len(df)

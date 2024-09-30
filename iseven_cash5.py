@@ -91,8 +91,8 @@ df = pd.read_csv(r'/Users/gustavo.vaca/Downloads/cash5_Pos_by_Position - Sheet32
 # csv for Pos_Layout5
 
 # Set Filter
-Pos_Filter = 'Pos_highLow2'
-rowsToCheck = 14
+Pos_Filter = 'Pos_Layout1'
+rowsToCheck = 20
 
 # Clear the screen terminal and Calculate Pos_Filter median
 os.system('clear')
@@ -122,8 +122,8 @@ for i in range(10000000):
 correlation = 0
 correlation1 = 0
 count =0
-while not correlation1 > 0.6 or correlation1 < -0.6: 
-  while not correlation > 0.97 or correlation < -0.97: # +/- 0.96 for last 10 draws. +/- 0.15 for all draws (look for highest correlation for last 10 draws)
+while not correlation1 >= 0.6 or correlation1 <= -0.6: 
+  while not correlation >= 0.9 or correlation <= -0.9: # +/- 0.96 for last 10 draws. +/- 0.15 for all draws (look for highest correlation for last 10 draws)
     count += 1
 
     df_partial = generate_random_numbers(df, df_partial, Pos_Filter, number_of_rows, number_of_rows_reduced)
