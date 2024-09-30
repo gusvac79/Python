@@ -120,7 +120,7 @@ correlation = 0
 correlation1 = 0
 count =0
 while not correlation1 >= 0.6 or correlation1 <= -0.6: 
-  while not correlation >= 0.95 or correlation <= -0.95: # +/- 0.96 for last 10 draws. +/- 0.15 for all draws (look for highest correlation for last 10 draws)
+  while not correlation >= 0.98 or correlation <= -0.98: # +/- 0.96 for last 10 draws. +/- 0.15 for all draws (look for highest correlation for last 10 draws)
     count += 1
 
     df_partial = generate_random_numbers(df, df_partial, Pos_Filter, number_of_rows, number_of_rows_reduced)
