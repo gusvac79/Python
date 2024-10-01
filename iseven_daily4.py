@@ -89,7 +89,7 @@ df = pd.read_csv(r'/Users/gustavo.vaca/Downloads/daily4night - Sheet24.csv')
 
 # Set Filter
 Pos_Filter = 'Pos_Layout1'
-rowsToCheck = 18
+rowsToCheck = 16
 
 # Clear the screen terminal and Calculate Pos_Filter median
 os.system('clear')
