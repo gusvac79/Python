@@ -88,8 +88,8 @@ df = pd.read_csv(r'/Users/gustavo.vaca/Downloads/daily4night - Sheet24.csv')
 # csv for Pos_Layout4
 
 # Set Filter
-Pos_Filter = 'Pos_Layout4'
-rowsToCheck = 12
+Pos_Filter = 'Pos_Layout3'
+rowsToCheck = 14
 
 # Clear the screen terminal and Calculate Pos_Filter median
 os.system('clear')
@@ -233,3 +233,6 @@ df_summary['conteo'] = (df_summary['tempo1'] == df_summary['tempo2']).astype(int
 # Print percentage of 1s and 0s in 'conteo'
 conteo_counts = df_summary['conteo'].value_counts(normalize=True) * 100
 print(conteo_counts)
+
+# Analisis: 
+# Observar coincidencias entre Pos predicted (less, greather, equal) and predicted value
