@@ -105,7 +105,7 @@ df = pd.read_csv(r'/Users/gustavo.vaca/Downloads/daily4night - Sheet24.csv')
 # csv for PosX-Y
 
 # Set Filter
-Pos_Filter = 'Pos3'
+Pos_Filter = 'Pos4'
 rowsToCheck = 10 # Last rowToCheck values to be correlated
 
 # Clear the screen terminal and Calculate Pos_Filter median
@@ -139,7 +139,7 @@ count =0
 # +/- 0.4 for all prediction set. +/- 0.985 for Pos_DelA-B, rowToCheck=8
 # +/- 0.95 for all prediction set. +/- 0.9955 for PosA-B, PosA-B-C rowToCheck=8 (no confiable!)
 while not correlation1 >= 0.6 or correlation1 <= -0.6: 
-  while not correlation >= 0.985 or correlation <= -0.985: 
+  while not correlation >= 0.97 or correlation <= -0.97: 
     count += 1
 
     df_partial = generate_random_numbers(df, df_partial, Pos_Filter, number_of_rows, number_of_rows_reduced)
