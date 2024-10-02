@@ -63,16 +63,6 @@ def generate_random_numbers(df, df_partial, Pos_Filter, number_of_rows, number_o
 # csv Master File
 df = pd.read_csv(r'/Users/gustavo.vaca/Downloads/daily4night - Sheet24.csv')
 
-# csv for Skip_Pos1
-# csv for Skip_Pos2
-# csv for Skip_Pos3
-# csv for Skip_Pos4
-
-# csv for Skip_PosAny1
-# csv for Skip_PosAny2
-# csv for Skip_PosAny3
-# csv for Skip_PosAny4
-
 # ------- For median = 5, N=120 ----------
 # csv for PosX
 
@@ -104,8 +94,16 @@ df = pd.read_csv(r'/Users/gustavo.vaca/Downloads/daily4night - Sheet24.csv')
 # ------- For median = 30, N=1150 ---------
 # csv for PosX-Y
 
+# ------- For median = 14, N=240 ----------
+# csv for Pos1x2
+# csv for Pos1x3
+# csv for Pos1x4
+# csv for Pos2x3
+# csv for Pos2x4
+# csv for Pos3x4
+
 # Set Filter
-Pos_Filter = 'Pos4'
+Pos_Filter = 'Pos_Sum2-3'
 rowsToCheck = 10 # Last rowToCheck values to be correlated
 
 # Clear the screen terminal and Calculate Pos_Filter median
@@ -122,7 +120,7 @@ rf = RandomForestRegressor(n_estimators=100, random_state=42)
 log_reg = LogisticRegression(C=0.0001, max_iter=1000, penalty='none', solver='saga', random_state=0)
 
 predictors = [Pos_Filter]
-df_partial = df[predictors][-120:]
+df_partial = df[predictors][-240:]
 # 153 for Posn (median = 5). 129 for Skip_Pos1 and Skip_Pos4 (median = 6)
 
 number_of_rows = len(df)
@@ -139,7 +137,7 @@ count =0
 # +/- 0.4 for all prediction set. +/- 0.985 for Pos_DelA-B, rowToCheck=8
 # +/- 0.95 for all prediction set. +/- 0.9955 for PosA-B, PosA-B-C rowToCheck=8 (no confiable!)
 while not correlation1 >= 0.6 or correlation1 <= -0.6: 
-  while not correlation >= 0.97 or correlation <= -0.97: 
+  while not correlation >= 0.985 or correlation <= -0.985: 
     count += 1
 
     df_partial = generate_random_numbers(df, df_partial, Pos_Filter, number_of_rows, number_of_rows_reduced)
