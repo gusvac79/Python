@@ -63,6 +63,12 @@ def generate_random_numbers(df, df_partial, Pos_Filter, number_of_rows, number_o
 # csv Master File
 df = pd.read_csv(r'/Users/gustavo.vaca/Downloads/daily4night - Sheet24.csv')
 
+# ------- For median = 6, N=100 ----------
+# csv for Skip_Pos1
+# csv for Skip_Pos2
+# csv for Skip_Pos3
+# csv for Skip_Pos4
+
 # ------- For median = 5, N=120 ----------
 # csv for PosX
 
@@ -91,20 +97,9 @@ df = pd.read_csv(r'/Users/gustavo.vaca/Downloads/daily4night - Sheet24.csv')
 # ------- For median = 18, N=300 ----------
 # csv for Pos_Sum
 
-# ------- For median = 30, N=1150 ---------
-# csv for PosX-Y
-
-# ------- For median = 14, N=240 ----------
-# csv for Pos1x2
-# csv for Pos1x3
-# csv for Pos1x4
-# csv for Pos2x3
-# csv for Pos2x4
-# csv for Pos3x4
-
 # Set Filter
-Pos_Filter = 'Pos_Sum2-3'
-rowsToCheck = 10 # Last rowToCheck values to be correlated
+Pos_Filter = 'Pos_Sum'
+rowsToCheck = 10 # Last rowToCheck values to be correlated. Use 12 for Skip_PosX
 
 # Clear the screen terminal and Calculate Pos_Filter median
 os.system('clear')
@@ -120,7 +115,7 @@ rf = RandomForestRegressor(n_estimators=100, random_state=42)
 log_reg = LogisticRegression(C=0.0001, max_iter=1000, penalty='none', solver='saga', random_state=0)
 
 predictors = [Pos_Filter]
-df_partial = df[predictors][-240:]
+df_partial = df[predictors][-100:]
 # 153 for Posn (median = 5). 129 for Skip_Pos1 and Skip_Pos4 (median = 6)
 
 number_of_rows = len(df)
@@ -196,12 +191,12 @@ residual_mean_net = df_summary['delta_net'].mean()
 residual_std_net = df_summary['delta_net'].std()
 
 # Calculate the 20th percentile
-percentile_20 = round(df_summary['delta'].quantile(0.20))
-percentile_20_net = round(df_summary['delta_net'].quantile(0.20))
+percentile_20 = round(df_summary['delta'].quantile(0.125))
+percentile_20_net = round(df_summary['delta_net'].quantile(0.125))
 
 # Calculate the 80th percentile
-percentile_80 = round(df_summary['delta'].quantile(0.80))
-percentile_80_net = round(df_summary['delta_net'].quantile(0.80))
+percentile_80 = round(df_summary['delta'].quantile(0.875))
+percentile_80_net = round(df_summary['delta_net'].quantile(0.875))
 
 # Calculate the min and max
 residual_min = df_summary['delta'].min()
