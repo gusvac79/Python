@@ -98,8 +98,8 @@ df = pd.read_csv(r'/Users/gustavo.vaca/Downloads/daily4night - Sheet24.csv')
 # csv for Pos_Sum
 
 # Set Filter
-Pos_Filter = 'Pos_Sum'
-rowsToCheck = 10 # Last rowToCheck values to be correlated. Use 12 for Skip_PosX
+Pos_Filter = 'Pos_Sum1-2-3'
+rowsToCheck = 10 # Last rowToCheck values to be correlated. Use 12 (o mayor si conteo es menor de 80%) for Skip_PosX
 
 # Clear the screen terminal and Calculate Pos_Filter median
 os.system('clear')
