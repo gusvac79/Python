@@ -63,7 +63,14 @@ def generate_random_numbers(df, df_partial, Pos_Filter, number_of_rows, number_o
 # csv Master File
 df = pd.read_csv(r'/Users/gustavo.vaca/Downloads/cash5_Pos_by_Position - Sheet32.csv')
 
-# ------- For median = 7, N=400 ----------
+# ------- For median = 24, N=400 ----------
+# csv for Skip_Pos1
+# csv for Skip_Pos2
+# csv for Skip_Pos3
+# csv for Skip_Pos4
+# csv for Skip_Pos5
+
+# ------- For median = 18, N=300 ----------
 # csv for PosX
 
 # ------- For median = 3, N=50 ----------
@@ -91,12 +98,9 @@ df = pd.read_csv(r'/Users/gustavo.vaca/Downloads/cash5_Pos_by_Position - Sheet32
 # ------- For median = 18, N=300 ----------
 # csv for Pos_Sum
 
-# ------- For median = 30, N=500 ---------
-# csv for PosX-Y
-
 # Set Filter
-Pos_Filter = 'Pos1'
-rowsToCheck = 5
+Pos_Filter = 'Pos_Sum1-2'
+rowsToCheck = 10
 
 # Clear the screen terminal and Calculate Pos_Filter median
 os.system('clear')
@@ -188,12 +192,12 @@ residual_mean_net = df_summary['delta_net'].mean()
 residual_std_net = df_summary['delta_net'].std()
 
 # Calculate the 20th percentile
-percentile_20 = round(df_summary['delta'].quantile(0.20))
-percentile_20_net = round(df_summary['delta_net'].quantile(0.20))
+percentile_20 = round(df_summary['delta'].quantile(0.125))
+percentile_20_net = round(df_summary['delta_net'].quantile(0.125))
 
 # Calculate the 80th percentile
-percentile_80 = round(df_summary['delta'].quantile(0.80))
-percentile_80_net = round(df_summary['delta_net'].quantile(0.80))
+percentile_80 = round(df_summary['delta'].quantile(0.875))
+percentile_80_net = round(df_summary['delta_net'].quantile(0.875))
 
 # Calculate the min and max
 residual_min = df_summary['delta'].min()

@@ -98,7 +98,7 @@ df = pd.read_csv(r'/Users/gustavo.vaca/Downloads/daily4night - Sheet24.csv')
 # csv for Pos_Sum
 
 # Set Filter
-Pos_Filter = 'Pos_Sum1-2-3'
+Pos_Filter = 'Pos4'
 rowsToCheck = 10 # Last rowToCheck values to be correlated. Use 12 (o mayor si conteo es menor de 80%) for Skip_PosX
 
 # Clear the screen terminal and Calculate Pos_Filter median
@@ -115,7 +115,7 @@ rf = RandomForestRegressor(n_estimators=100, random_state=42)
 log_reg = LogisticRegression(C=0.0001, max_iter=1000, penalty='none', solver='saga', random_state=0)
 
 predictors = [Pos_Filter]
-df_partial = df[predictors][-100:]
+df_partial = df[predictors][-120:]
 # 153 for Posn (median = 5). 129 for Skip_Pos1 and Skip_Pos4 (median = 6)
 
 number_of_rows = len(df)
