@@ -104,7 +104,7 @@ df = pd.read_csv(r'/Users/gustavo.vaca/Downloads/daily4night - Sheet24.csv')
 # csv for Pos_Sum
 
 # Set Filter
-Pos_Filter = 'Pos4'
+Pos_Filter = 'Skip_Pos1'
 rowsToCheck = 10 # Last rowToCheck values to be correlated. Use 12 (o mayor si conteo es menor de 80%) for Skip_PosX
 
 # Clear the screen terminal and Calculate Pos_Filter median
@@ -119,7 +119,7 @@ rf = RandomForestRegressor(n_estimators=100, random_state=42)
 log_reg = LogisticRegression(C=0.0001, max_iter=1000, penalty='none', solver='saga', random_state=0)
 
 predictors = [Pos_Filter]
-df_partial = df[predictors][-120:]
+df_partial = df[predictors][-200:]
 # 153 for Posn (median = 5). 129 for Skip_Pos1 and Skip_Pos4 (median = 6)
 
 number_of_rows = len(df)
@@ -136,7 +136,7 @@ count =0
 # +/- 0.79 for Pos_SumA-B, Pos_SumA-B-C, Pos_Sum predictions set. Duble Skip = 320
 # +/- 0.8 for Pos_DelA-B prediction set. Double skip = 100
 
-while not correlation1 >= 0.7 or correlation1 <= -0.7:
+while not correlation1 >= 0.92 or correlation1 <= -0.92:
   #while not correlation >= 0.985 or correlation <= -0.985:
   count += 1
 
@@ -270,7 +270,7 @@ print('Porcentaje del rango 0,1,2 valor futuro vs. valor predicho')
 print((df_summary['delta'].value_counts()[0] + df_summary['delta'].value_counts()[1] + df_summary['delta'].value_counts()[2])*100/len(df_summary))
 
 # Considerar este valor cuando valor predicho es igual al ultimo predicho y filtro vs. skip es alto (>=30%). delta = abs(Pos_Filter - Skip)
-(df_summary['delta'].value_counts()[0] + df_summary['delta'].value_counts()[1] + df_summary['delta'].value_counts()[2] + df_summary['delta'].value_counts()[3])*100/len(df_summary)
+print((df_summary['delta'].value_counts()[0] + df_summary['delta'].value_counts()[1] + df_summary['delta'].value_counts()[2] + df_summary['delta'].value_counts()[3])*100/len(df_summary))
 
 # Analisis: 
 # Observar coincidencias entre Pos predicted (less, greather, equal) and predicted value
