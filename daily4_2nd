@@ -78,7 +78,7 @@ df = pd.read_csv(r'/Users/gustavo.vaca/Downloads/daily4night - Sheet24.csv')
 # ------- For median = 5, N=120 ----------
 # csv for PosX
 
-# ------- For median = 3, N=50 ----------
+# ------- For median = 3, N=50 ---------- no confiable!!!
 # csv for Pos_Del1-2
 # csv for Pos_Del1-3
 # csv for Pos_Del1-4
@@ -131,32 +131,33 @@ for i in range(10000000):
 correlation = 0
 correlation1 = 0
 count =0
-# +/- 0.67 for all prediction set. +/- 0.985 for PosN, rowToCheck=8 
-# +/- 0.8 for all prediction set. +/- 0.985 for Pos_SumA-B, Pos_SumA-B-C, Pos_Sum rowToCheck=8
-# +/- 0.4 for all prediction set. +/- 0.985 for Pos_DelA-B, rowToCheck=8
-# +/- 0.95 for all prediction set. +/- 0.9955 for PosA-B, PosA-B-C rowToCheck=8 (no confiable!)
-while not correlation1 >= 0.69 or correlation1 <= -0.69: 
-  while not correlation >= 0.985 or correlation <= -0.985: 
-    count += 1
+# +/- 0.92 for all Skip_PosN predictions. Double Skip = 200
+# +/- 0.7 for all Pos N predictions. Double Skip = 240
+# +/- 0.79 for Pos_SumA-B, Pos_SumA-B-C, Pos_Sum predictions set. Duble Skip = 320
+# +/- 0.8 for Pos_DelA-B prediction set. Double skip = 100
 
-    df_partial = generate_random_numbers(df, df_partial, Pos_Filter, number_of_rows, number_of_rows_reduced)
+while not correlation1 >= 0.7 or correlation1 <= -0.7:
+  #while not correlation >= 0.985 or correlation <= -0.985:
+  count += 1
 
-    predictors = [Pos_Filter, 'random']
-    data = addTomorrow(df_partial, Pos_Filter)
+  df_partial = generate_random_numbers(df, df_partial, Pos_Filter, number_of_rows, number_of_rows_reduced)
 
-    X = data[predictors]
-    y = data[['target']]
-    just_train(rf, X, y)
+  predictors = [Pos_Filter, 'random']
+  data = addTomorrow(df_partial, Pos_Filter)
 
-    # Make predictions
-    y_pred = rf.predict(X).astype(int)
+  X = data[predictors]
+  y = data[['target']]
+  just_train(rf, X, y)
 
-    df_summary = y.astype(int)
-    df_summary.rename(columns={'target': Pos_Filter}, inplace=True)
-    EMA = 'Skip '
-    df_summary[EMA] = y_pred
+  # Make predictions
+  y_pred = rf.predict(X).astype(int)
 
-    correlation = df_summary.iloc[-rowsToCheck:][Pos_Filter].corr(df_summary.iloc[-rowsToCheck:][EMA])
+  df_summary = y.astype(int)
+  df_summary.rename(columns={'target': Pos_Filter}, inplace=True)
+  EMA = 'Skip '
+  df_summary[EMA] = y_pred
+
+    #correlation = df_summary.iloc[-rowsToCheck:][Pos_Filter].corr(df_summary.iloc[-rowsToCheck:][EMA])
   correlation1 = df_summary[Pos_Filter].corr(df_summary[EMA])
 
 print(count)
@@ -255,17 +256,21 @@ df_summary['conteo'] = (df_summary['tempo1'] == df_summary['tempo2']).astype(int
 conteo_counts = df_summary['conteo'].value_counts(normalize=True)*100
 print(conteo_counts)
 
-# From df calculate Pos_Filter percentile
+# Take df and calculate 20% and 80% Pos_Filter delta percentile
 df['tempo3'] = abs(df[Pos_Filter].shift(-1) - df[Pos_Filter])
-# Calculate the 20th percentile of Pos_Filter (whole dataframe)
+# Calculate the 20th percentile
 percentile_20_Pos = round(df['tempo3'].quantile(0.125))
-# Calculate the 80th percentile of Pos_Filter (whole dataframe)
+# Calculate the 80th percentile
 percentile_80_Pos = round(df['tempo3'].quantile(0.875))
-print('Delta filter value should be between ' + str(percentile_20_Pos) + ' and ' + str(percentile_80_Pos))
+
+print('Delta ' + Pos_Filter +  ' filter value should be between ' + str(percentile_20_Pos) + ' and ' + str(percentile_80_Pos) + ' (75% accuracy)')
 
 # Considerar este valor cuando valor predicho es igual al ultimo predicho y filtro vs. skip es alto (>=30%)
 print('Porcentaje del rango 0,1,2 valor futuro vs. valor predicho')
 print((df_summary['delta'].value_counts()[0] + df_summary['delta'].value_counts()[1] + df_summary['delta'].value_counts()[2])*100/len(df_summary))
+
+# Considerar este valor cuando valor predicho es igual al ultimo predicho y filtro vs. skip es alto (>=30%). delta = abs(Pos_Filter - Skip)
+(df_summary['delta'].value_counts()[0] + df_summary['delta'].value_counts()[1] + df_summary['delta'].value_counts()[2] + df_summary['delta'].value_counts()[3])*100/len(df_summary)
 
 # Analisis: 
 # Observar coincidencias entre Pos predicted (less, greather, equal) and predicted value
