@@ -88,7 +88,7 @@ df = pd.read_csv(r'/Users/gustavo.vaca/Downloads/daily4night - Sheet24.csv')
 # csv for Pos_Layout4
 
 # Set Filter
-Pos_Filter = 'Pos_Layout1'
+Pos_Filter = 'Pos_Layout4'
 rowsToCheck = 20
 
 # Clear the screen terminal and Calculate Pos_Filter median

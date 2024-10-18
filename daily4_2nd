@@ -104,7 +104,7 @@ df = pd.read_csv(r'/Users/gustavo.vaca/Downloads/daily4night - Sheet24.csv')
 # csv for Pos_Sum
 
 # Set Filter
-Pos_Filter = 'Skip_Pos1'
+Pos_Filter = 'Pos3'
 rowsToCheck = 10 # Last rowToCheck values to be correlated. Use 12 (o mayor si conteo es menor de 80%) for Skip_PosX
 
 # Clear the screen terminal and Calculate Pos_Filter median
@@ -173,17 +173,17 @@ graph(y_test_last, y_pred_last, Pos_Filter)
 
 df_summary['up/down'] = (df_summary[Pos_Filter] < df_summary[EMA]).astype(int)
 # Calculate %
-print(str(Pos_Filter) + ' (predicted) is less than or equal to  ' + str(EMA) + ' (%)')
+print(str(Pos_Filter) + ' (future) is less than or equal to  ' + str(EMA) + ' (predicted) (%)')
 print(df_summary['up/down'].value_counts()*100/df_summary['up/down'].count())
 
 df_summary['up/down'] = (df_summary[Pos_Filter] > df_summary[EMA]).astype(int)
 # Calculate %
-print(str(Pos_Filter) + ' (predicted) is greater than or equal to ' + str(EMA) + ' (%)')
+print(str(Pos_Filter) + ' (future) is greater than or equal to ' + str(EMA) + ' (predicted) (%)')
 print(df_summary['up/down'].value_counts()*100/df_summary['up/down'].count())
 
 df_summary['up/down'] = (df_summary[Pos_Filter] == df_summary[EMA]).astype(int)
 # Calculate % OJO: Pos_Filter = EMA -> up/down=1
-print(str(Pos_Filter) + ' (predicted) is equal to ' + str(EMA) + ' (%)')
+print(str(Pos_Filter) + ' (future) is equal to ' + str(EMA) + ' (predicted) (%)')
 print(df_summary['up/down'].value_counts()*100/df_summary['up/down'].count())
 
 df_summary['delta'] = abs(df_summary[Pos_Filter] - df_summary[EMA])
@@ -270,6 +270,7 @@ print('Porcentaje del rango 0,1,2 valor futuro vs. valor predicho')
 print((df_summary['delta'].value_counts()[0] + df_summary['delta'].value_counts()[1] + df_summary['delta'].value_counts()[2])*100/len(df_summary))
 
 # Considerar este valor cuando valor predicho es igual al ultimo predicho y filtro vs. skip es alto (>=30%). delta = abs(Pos_Filter - Skip)
+print('Porcentaje del rango 0,1,2,3 valor futuro vs. valor predicho')
 print((df_summary['delta'].value_counts()[0] + df_summary['delta'].value_counts()[1] + df_summary['delta'].value_counts()[2] + df_summary['delta'].value_counts()[3])*100/len(df_summary))
 
 # Analisis: 
